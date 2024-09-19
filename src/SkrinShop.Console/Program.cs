@@ -17,12 +17,15 @@ var connectionStringOption = new Option<string>(
 {
     IsRequired = true
 };
+var ensureCreatedOption = new Option<bool>(
+    name: "--ensure-created",
+    description: "Enable esurance that database exits");
 
 var rootCommand = new RootCommand("Order import util");
 rootCommand.AddOption(fileOption);
 rootCommand.AddOption(connectionStringOption);
 
-rootCommand.SetHandler(async (file, connectionString) =>
+rootCommand.SetHandler(async (file, connectionString, isEnsureEnabled) =>
     {
         var services = new ServiceCollection();
         services.AddPersistence(connectionString);
@@ -34,7 +37,7 @@ rootCommand.SetHandler(async (file, connectionString) =>
         OrderImportSerivce importSerivce = serviceProvider.GetRequiredService<OrderImportSerivce>();
         OrderReader parsingService = serviceProvider.GetRequiredService<OrderReader>();
         ILogger<Program> logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-        if (serviceProvider.EnusereDbCreated())
+        if (isEnsureEnabled && serviceProvider.EnusereDbCreated())
         {
             logger.LogInformation("Database was created");
         }
@@ -43,6 +46,6 @@ rootCommand.SetHandler(async (file, connectionString) =>
         await importSerivce.ImportOrderAsync(orders);
         logger.LogInformation("Import completed");
     },
-    fileOption, connectionStringOption);
+    fileOption, connectionStringOption, ensureCreatedOption);
 
 return await rootCommand.InvokeAsync(args);
