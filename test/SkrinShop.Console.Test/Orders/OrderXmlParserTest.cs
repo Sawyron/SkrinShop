@@ -1,5 +1,6 @@
 using SkrinShop.Console.Orders;
 using SkrinShop.Console.Products;
+using SkrinShop.Console.Users;
 using System.Xml.Linq;
 
 namespace SkrinShop.Console.Test.Orders;
