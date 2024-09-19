@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SkrinShop.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "--file \"D:\\Data\\Projects\\C#\\SkrinShop\\data.xml\" --connection \"Host=localhost; Database=skrin-shop; Username=postgres; Password=qwerty\""
+    }
+  }
+}
