@@ -36,8 +36,7 @@ public sealed class OrderImportSerivce
             }
             catch (Exception ex)
             {
-                _logger.LogError("Order import error {}", ex);
-                throw;
+                _logger.LogError("Order import error. Order id: {}. {}", order.Id, ex);
             }
         }
     }
