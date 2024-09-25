@@ -32,7 +32,7 @@ rootCommand.SetHandler(async (file, connectionString, isEnsureEnabled) =>
         services.AddApplication();
         services.AddLogging(builder => builder.AddConsole());
 
-        IServiceProvider serviceProvider = services.BuildServiceProvider();
+        using ServiceProvider serviceProvider = services.BuildServiceProvider();
 
         OrderImportSerivce importSerivce = serviceProvider.GetRequiredService<OrderImportSerivce>();
         OrderReader parsingService = serviceProvider.GetRequiredService<OrderReader>();
